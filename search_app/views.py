@@ -1,19 +1,34 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
+from .models import *
+from .forms import *
 
 
 def home(request):
+    s = Search.objects.all()
     search = {}
     if 'q' in request.GET:
         q = request.GET['q']
-        result = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyBANrKh1ceZe5e0-HeqHoFGWJ4wUGXivw4&cx=017576662512468239146:omuauf_lfve&q=%s' %q
+        result = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyBANrKh1ceZe5e0-HeqHoFGWJ4wUGXivw4&cx=004553453871434279896:0jr_zktiwb8&client_id=1068010455315-61tqerc4jaalos7ov396c792k3umgihv.apps.googleusercontent.com&q=%s' %q
         print(result)
         response = requests.get(result)
-        print(response)
+        # print(response)
         search = response.json()
-        print(search)
+        # print(search)
+     
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            form.save()
+            s.save()
+
+        return redirect('home')
 
     return render(request, 'search_app/search.html', {'search':search})
+
+
+
+    # cx = '004553453871434279896:0jr_zktiwb8';
 
 
 
