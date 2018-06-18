@@ -14,11 +14,12 @@ def home(request):
         response = requests.get(result)
         # print(response)
         search = response.json()
-        # print(search)
-     
+        print(search)
+
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
+            s = search
             form.save()
             s.save()
 
