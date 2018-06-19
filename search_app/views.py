@@ -6,7 +6,7 @@ from .forms import *
 
 def home(request):
     s = Search.objects.all()
-    search = {}
+    search = []
     if 'q' in request.GET:
         q = request.GET['q']
         result = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyBANrKh1ceZe5e0-HeqHoFGWJ4wUGXivw4&cx=004553453871434279896:0jr_zktiwb8&client_id=1068010455315-61tqerc4jaalos7ov396c792k3umgihv.apps.googleusercontent.com&q=%s' %q
